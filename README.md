@@ -92,4 +92,27 @@ Pretty obvious rules but legal needs this stated. You can read the whole thing [
 
 10. Which of the following is the definition of Cloud Computing?
 
--
+- Rapidly develop, test, and launch software applications - this is the definition of agility
+- automatic and quick ability to acquire resources as you need them and release resources when you no longer need them - This is the definition of elasticity
+- `On-demand availability of computer system resources, especially data storage (cloud storage) and computing power, without direct active management by the user`
+- Change resource types when needed - this is the definition of flexibility
+
+11. What defines the distribution of responsibilities for security in the AWS Cloud?
+
+- AWS pricing fundamentals -> these describe the 3 fundamentals of the pay-as-you-go model
+- `The shared responsibility model`
+- AWS acceptance use policy - describes prohibited uses
+- The AWS management console - the console allows you to manage services.
+
+12. A company would like to benefit from the advantages of the Public Cloud but would like to keep sensitive assets in its own infrastructure. Which deployment model should the company use?
+
+- Private cloud
+- public cloud - using only the public cloud does not allow to keep sensitive assets in your own infrastructure.
+- `hybrid cloud - this allows you to benefit from the flexibility, scalability, and on-demand storage access while keeping security and performance in your own infrastructure.`
+
+13. What is NOT authorized to do on AWS according to the AWS Acceptable Use Policy?
+
+- Building a gaming application
+- Deploying a website
+- `Run analytics on stolen content - you can run analytics, but not on fraudulent content.`
+- Backup your data
