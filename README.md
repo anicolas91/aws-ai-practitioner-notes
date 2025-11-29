@@ -255,7 +255,7 @@ The cost:
 
 And the quality of the output by having an actual look at the answer and making a judgement.
 
-#### Custom models
+### Custom models
 
 We can create our custom models, via the following customization methods:
 
@@ -311,3 +311,68 @@ For example, you use claude 3, and do transfer learning to adapt it to a new tas
 Very similar to finetuning, but actually it's better for image classification, and NLPs like Bert of GPT.
 
 Actually finetuning is a specific kind of transfer learning.
+
+#### Use Cases
+
+You do this when you want to have a chatbot with a particular persona or tone, or geared for a specific purpose, like customer support and such.
+
+Same if you want to use the most up-to-date information, or if you want to use exclusive data like emails, messages, etc.
+
+Same for when you want to do a super specific task, like classification asessing accuracy.
+
+### Evaluation
+
+You basically need to evaluate the quality of your model via evaluation. You can build your own evaluation prompt, or use one of the default ones available on AWS, and use that to automatically get a score on performance. The way to score can be done with a bunch of different statistical methods.
+
+After all, you want to make sure this model actually works.
+
+#### LLM-as-judge evaluation
+
+The setup needs some ground truth data, and the process looks like this:
+
+![llm-evaluation](./images/llm-evaluation.png)
+
+You need curated datasets to actually measure performance.
+
+You may need a wide array of topics, complexity, and stuff like that.
+
+And it's helpful to do evaluations because it gives you an idea on how accurate it is, how fast, if it scales, etc.
+
+Some datasets allow you to evaluate bias, so you can see if your model is biased and racist.
+
+Naturally, you can make your own benchmark datasets. But currently there are a bunch of default datasets to benchmark against, and estimate behavior scores.
+
+#### Human evaluation
+
+It's pretty much the same bit, of comparing the benchmark answers against the generated ones from your model. But instead of having an LLM you have a bunch of people doing that evaluation by hand.
+
+You need subject matter experts looking at the answers to actually evaluate given their expertise.
+
+How can humans evaluate? easy:
+
+- thumbs up/thumbs down
+- ranking
+- literally just a score
+
+The process looks like this:
+
+![human-evaluation](./images/human-evaluation.png)
+
+#### Common metrics
+
+- BLEU -> you evaluate translation. Penalizes for brevity, and looks at combination of n-grams. Slightly more advanced metric.
+- ROUGE -> you evaluate summarization and translation services.
+  - rouge-n measures the number of matching n-grams between reference and generated text.
+  - rouge-l measures the longest common subsequence between reference and generated text.
+- BERTscore -> Looks at the semantic similarity between generated text. Basically you compare the meanings of the text. You use a model to compare the embeddings of a text via cosine similarity. Good at nuance.
+- Perplexity -> how well the model predicts the next token. Lower is better... if it's confident it's less perplexed.
+
+#### Business metrics
+
+You can also evaluate the performance of a model based on business metrics like:
+
+- user satisfaction
+- average revenue per user (revenue per user attributed to genAI)
+- cross-domain performance (how good the model was at multitasking)
+- conversion rates (generated expected outcomes like purchases)
+- efficiency (computation, resources, etc)
