@@ -423,3 +423,82 @@ a fun way to conceptualize embedding is to look at colors... an embedding is a b
 ![embeddings](./images/embeddings.png)
 
 Note that when people visualize these vectors they have to do dimensionality reduction because embeddings have n dimensions, but we can reliably conceptualize up to like 3 dimensions.
+
+### Guardrails
+
+You control the interaction between the user and the model. You filter undesirable content, remove PII, and reduce hallucinations.
+You can make multiple guardrails and can monitor/analyze them to see whats up.
+
+Amazon AWS literally has "guardrails".
+
+you give:
+
+- details : name, what message to show for blocked prompts, description
+- configure content filters : filter harmful categories, prompt attacks
+- add denied topic : name and define a topic to deny. can do several
+- add word filters: profanity, custom words/phrases
+- add sensitive info filter: mask any specific pii like emails and names and such, or set a certain regex pattern to filter out.
+- add contextual grounding : grounding (validate that the response is based on reference source, given a grounding threshold) and relevance (validate that the model response is relevant to the user query.)
+
+Once you select all the bits on your guardrail, you select a model and test with a prompt... and see what the model response looks like.
+
+You will se a "model response" which is an intermediate step, which then goes after masking and then is set as a "final response". On the final response you get pii masked, and the "sorry cant do that" answer if you touch a topic you were not supposed to.
+
+Guardrails dont seem to cost you any money. Nice.
+
+### Agents
+
+Agents can manage and carry out multi-step tasks related to infrastructure provisioning, deployment, and operational activities.
+
+On AWS bedrock the agent can be an api or a lambda function + a knowledge base in s3 that saves everything in some db.
+
+you have to give instructions to the agent on what htey can do and what they are supposed to help with.
+
+They work like this:
+![agents](./images/agents.png)
+
+### Cloudwatch
+
+Cloudwatch is for monitoring, they can:
+
+- model invocation logging: sends logs of all model invocations to cloudwatch + s3 . You can analyze further and build alerts with `cloudwatch log insights`.
+- cloudwatch metrics: Can use published bedrock metrics like the contentFilteredCount to see if guardrails are working. You can also build `cloudwatch alarms` on top of metrics.
+
+#### model invocation logging
+
+You set this up by going to `settings -> model invocation logging`.
+
+This collects metadata of all metadata, requests, and responses for all model invocations in your account. does not apply to knowledge bases.
+
+You can select the data types to include with the logs (text, image, embedding) and the location to save these logs (cloudwatch, s3, or both). You usually use s3 if it is too big of a log (100kb or more).
+
+If this does not automatically create a log group, you can go to cloudwatch logs --> log groups--> create log group --> and add the name of your log group for this model logging.
+
+So if you do the chat playground... you will see the log of that tryout. It will be some json format with the output and a ton of metadata, from model type, to tokens and latency and whatnot.
+
+#### cloudwatch metrics
+
+You go to `cloudwatch --> metrics --> all metrics -->bedrock`
+
+there you can see metrics like:
+
+- invocations
+- invocation latency
+- output token count
+
+and it comes with a dashboard
+
+### pricing
+
+Usually you can do either on-demand or batch for cost savings. And provisioned throughput to reserve resources for a good user experience.
+
+![pricing](./images/pricing.png)
+
+In general the cost of projects is, from cheapest to costliest:
+
+1. prompt engineering
+2. RAG
+3. Instruction-based finetuning (labeled data)
+4. domain adaptation finetuning (unlabeled data)
+
+The best way to save on cost is to use a cheap model + the least amount of tokens possible.
