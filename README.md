@@ -376,3 +376,50 @@ You can also evaluate the performance of a model based on business metrics like:
 - cross-domain performance (how good the model was at multitasking)
 - conversion rates (generated expected outcomes like purchases)
 - efficiency (computation, resources, etc)
+
+#### evaluation methods
+
+- automatic
+  - programmatic: we select a model and select the kind of task you want to evaluate. Metrics you can evaluate include: toxicity, accuracy, robustness, etc. you can use your own datasets or use some benchmark datasets.
+  - llm-as-judge: you need to choose a model that will perform the evaluation. We have less models available. We choose if we want to evaluate a) a bedrock model, or b) a jsonl file with your 'input prompt' and your 'inference responses'.
+- human
+  - aws managed work team: you schedule a consultation with someone from aws
+  - bring your own workforce: like the programmatic but with humans, you select the metrics to evaluate, and you can select up to 2 models to evaluate.
+
+All these metrics connect to s3 for in/out data.
+
+### RAG
+
+RAG - retrieval augmented generation
+
+We can use a foundation model that references data outside of its training data. No need for retraining the foundation model.
+
+Basically we run a search, and the output goes into an augmented prompt. Like so:
+
+![rag](./images/rag.png)
+
+And so in general we chunk the data, we convert it to vectors (and there are a ton of embedding models for that) and then we store the vectors somewhere for later search and retrieval. There are a ton of options, but AWS offers the following storage options:
+
+![dbs](./images/databases.png)
+
+Turns out you can "chat with your document" on AWS by uploading some knowledge base, selecting the model to try, and then directly on bedrock selecting your model parameters and testing the system prompt for this rag... so you can see the quality of your result given a query.
+
+from scratch... youd need an iam user to create a knowledge base.
+
+You basically make an s3 bucket for your knowledge base, and then connect that bucket to your bedrock knowledge base.
+
+If you want to stay free... use pinecone for vector storage.
+
+But for aws ... there is the amazon opensearch serverless... they say its cost effective, but like you need a min of 2 OCU (opensearch compute unit) to run, but it takes money (.25 usd per ocu per hour... so half a dollar an hour... and use that a lot... nope.)
+
+### genAI concepts
+
+- tokenization - converting words to indexes or tokens
+- context window - window the llm considers when answering
+- embeddings - convert toxens to a high dimensionality vector, captures sentiment and context and similarities
+
+a fun way to conceptualize embedding is to look at colors... an embedding is a bunch of colors, and two vectors with a similar hue then are similar... so for example a "dog" and a puppy would be very similar.
+
+![embeddings](./images/embeddings.png)
+
+Note that when people visualize these vectors they have to do dimensionality reduction because embeddings have n dimensions, but we can reliably conceptualize up to like 3 dimensions.
