@@ -502,3 +502,61 @@ In general the cost of projects is, from cheapest to costliest:
 4. domain adaptation finetuning (unlabeled data)
 
 The best way to save on cost is to use a cheap model + the least amount of tokens possible.
+
+### Udemy questions
+
+1. What is fine-tuning used for?
+
+- Train a model from scratch
+- `train a pre-trained foundational model on new specific data -> it improves performance in a particular task or domain`
+- adapt the model's performance by tuning hyperparameters
+- clean the training data to improve the model's quality
+
+2. What type of generative AI can recognize and interpret various forms of input data, such as text, images, and audio?
+
+- large language model
+- diffusion model
+- `multimodal model -> it allows a comprehensive understanding of diverse information types`
+- foundation model
+
+3. Which features can help you ensure that your model will not output harmful content?
+
+- `Guardrails -> its a direct protective measuse`
+- RAG and knowledge bases
+- model evaluation -> does not implement protective strategies directly
+- fine-tuning
+
+4. You need to be able to provide always-updated data to your foundation model without retraining it. Which capability best fits your use case?
+
+- in-context learning --> learns from examples during interaction without permanent updates. Does not use 'always updated' data
+- `RAG -> it accesses real-time updated data from external databases`
+- pre-training -> Does not use 'always updated' data
+- fine- tuning -> does not allow continuous integration of updated data.
+
+5. You are developing a model and want to ensure the outputs are adapted to your users. Which method do you recommend?
+
+- automated testing --> does not resonate user needs
+- using benchmark datasets --> do not reflect user context or feedback
+- code review -> this is purely technical
+- `human evaluation --> reflect user context or feedback`
+
+6. Which AWS service can help store embeddings within vector databases?
+
+- amazon s3 -> handles unstructured data but not meant for vector search
+- amazon dynamo db -> handles structured data but not meant for vector search
+- `amazon openseacrh serverless --> specific for vector embeddings`
+- amazon kinesis data streams -> meant for real time data streaming and processing, not vector search
+
+7. Which statement about Amazon Bedrock is INCORRECT?
+
+- customers want access to multiple models to choose the best fit for their needs
+- customers want the models fine-tuned with their data to be private
+- customers do not want to manage their infrastructure - people don't want to do the whole infrastrucutre, they want to focus on models
+- `customers want to build and train foundation models from scratch -> they almost always use pre-trained models`
+
+8. What is a common use case for Amazon Bedrock?
+
+- demand forecasting - this is just data analysis + ML
+- `conversational chatbots with relevant data --> NLP and agents and rag and whatnot`
+- extraction of text from images - this is just ml... bedrock is for using this as a part of a whole
+- predictive maintenance of vehicles - bedrock is more about applications about dialogue and language than predictive analytics.
