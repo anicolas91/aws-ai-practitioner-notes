@@ -624,3 +624,31 @@ The downside is that if unchecked, someone can literally prompt inject a harmful
 To counteract that, an initial option is to literally add explicit instructions to ignore any unrelated or potential malicious content.
 
 Not on the notes but to be honest, it's probably easiest to limit the options of user input to just a limited list, or somethign of the sort.
+
+### Udemy questions
+
+1. Which option accurately defines the concept of negative prompts in prompt engineering?
+
+- Additional instructions to produce unwanted outputs
+- `Examples of incorrect or undesirable outputs that the model should avoid generating --> we highlight specific outcomes that should be avoided`
+- Context that should be disregarded when generating responses
+- To change the overall tone in response
+
+2. What is the temperature parameter used for?
+
+- `Increasing the temperature makes the responses less predictable and more creative --> it increases creativity//randomness`
+- Increasing the temperature makes the response more deterministic and less diverse
+- Increasing the temperature will increse the final length of the answer
+- Increasing the temperature will make the answers more concise
+
+3. You are planning a complex project that involves several logical steps. You want an LLM to help you. What type of prompting should you use?
+
+- Few-shot prompting
+- Zero-shot prompting
+- `Chain-of-thought prompting --> literally does step by step`
+
+4. A task has been performed successfully in the past, and you would like your LLM to perform this task on a different input but with the same type of reasoning and output. Which type of prompting should you use?
+
+- Zero-shot prompting
+- `Few-shot prompting --> you already have a good example to give as reference, hence few-shot`
+- Chain-of-thought prompting
