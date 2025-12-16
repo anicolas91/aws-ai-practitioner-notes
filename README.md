@@ -560,3 +560,67 @@ The best way to save on cost is to use a cheap model + the least amount of token
 - `conversational chatbots with relevant data --> NLP and agents and rag and whatnot`
 - extraction of text from images - this is just ml... bedrock is for using this as a part of a whole
 - predictive maintenance of vehicles - bedrock is more about applications about dialogue and language than predictive analytics.
+
+## Section 6: Prompt engineering
+
+A super generic prompt gives little guidance and leaves a lot to the model’s interpretation
+
+So to get a good response, we do 'prompt engineering', where you basically edit the prompt to enhance the outputs that fit your needs.
+
+Two main techniques for prompt engineering:
+
+- prompt enhancement: add things like instructions, context, examples, input data, output style, etc.
+- negative prompting: give instructions on what NOT to do
+
+See below an example of an enhanced prompt + negative prompting in red:
+![prompting](./images/prompting.png)
+
+### performance optimization
+
+- system prompt (how the model should behave and reply)
+- temperature (overall creativity//randomness of the llm): 0 to 1. higher == more creative
+- top-p (percentile of words to consider based on their probabilities): 0 to 1. higher == adding more words that were not cutting it out probability wise (unlikelier words)
+- top-k (how many words to consider): 1 to k. higher == more words to choose from as well.
+- length (max length of the answer)
+- stop requences (token sequences that signal the output should be stopped)
+
+`Prompt latency is how fast a model responds.`
+
+Note that prompt latency is influenced by:
+
+- model size
+- model type
+- input tokens
+- output tokens
+
+And it is NOT affected by Top P, Top K, nor temperature.
+
+### prompt engineering techniques
+
+- zero-shot prompting : you dont give examples or explicit training, you fully rely on the model’s general knowledge. Bigger models are better.
+- few-shots prompting : you provide examples to guide the output (a “few shots”) to the model to perform the task. If you provide one example only, this is also called “one-shot” or “single-shot”.
+- Chain of thought (CoT) : you divide the task into a sequence of reasoning steps. On the prompt you can add something like “Think step by step”. It's particuarly helpful when this is a problem a human would actually have to divide by steps. Can be combined with Zero-Shot or Few-Shots Prompting.
+- RAG : you enhance the prompt with external information that is up to date. RAG itself is not really a prompt engineering technique, BUT it's often compared to one.
+
+## Prompt templates
+
+You basically standardize the process of generating Prompts. You have a main prompt with a placeholder for specific inputs.
+
+It helps with;
+
+- processing input text and output prompts from other FMs
+- orchestrates between different tools
+- formats and returns the response to the user as intended.
+- and of course it can be used with bedrock agents
+
+Here's an example:
+
+![promptTemplate](./images/promptTemplate.png)
+
+#### Prompt injections
+
+The downside is that if unchecked, someone can literally prompt inject a harmful command of the sort of 'ignore all previous and do this nefarious task i am asking'
+
+To counteract that, an initial option is to literally add explicit instructions to ignore any unrelated or potential malicious content.
+
+Not on the notes but to be honest, it's probably easiest to limit the options of user input to just a limited list, or somethign of the sort.
