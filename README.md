@@ -782,3 +782,273 @@ Good playground to create apps... and sells amazon bedrock and amazon q.
 - A voice-controlled assistant to perform AWS deployments
 - An external team of AWS developers
 - `An AI coding assistant --> kinda like copilot`
+
+## Section 8: Artificial intelligence AI & machine learning ML
+
+This section basically revisits basic AI/ML concepts that may come up in the exam, and delves a bit into the definitions of each.
+
+Some notes to remember:
+
+What is AI?
+
+AI is is a broad field for the development of intelligent systems capable of performing tasks that typically require human intelligence. It's a broad term.
+
+It usually has data layer --> ML framework or algorithm layer --> Model layer -->Application layer
+
+What is ML?
+
+ML is a type of AI for building methods that allow machines to learn. Data is leveraged to improve computer performance and make predictions. No explicit rules.
+
+What is DL? (Deep learning)
+
+DL Uses neurons and synapses (like our brain) to train a model. It processes more complex patterns in the data than traditional ML. It has many hidden layers. You need a lot of input data, and a lot of processing power (hence GPUs). Commonly used for NLP models and computer vision models.
+
+What is GenAI?
+
+It's a subset of deep learning. It's multi-purpose foundation models backed by neural networks, and can be finetuned to fit specific needs.
+
+What is the transformer model (LLM) ?
+
+It's a model capable to process a sentence as a whole instead of word by word. So it's faster. It gives relative importance (attention) to some parts of the sentence than others. Transformer-based LLMs include google BERT and chatGPT (Generative pretrained transformer)
+
+TL;DR, all these bits are kinda like a human, see below:
+
+![AIML](./images/AIML.png)
+
+### Terms we may encounter in the exam
+
+- **GPT (Generative Pre-trained Transformer)** – generate human text or computer code based on input prompts
+- **BERT (Bidirectional Encoder Representations from Transformers)** – similar intent to GPT, but reads the text in two directions (good for translations)
+- **RNN (Recurrent Neural Network)** – meant for sequential data such as time-series or text, useful in speech recognition, time-series prediction
+- **ResNet (Residual Network)** – Deep Convolutional Neural Network (CNN) used for image recognition tasks, object detection, facial recognition
+- **SVM (Support Vector Machine)** – ML algorithm for classification and regression (this one is the one where you have a plane that segments data into 2 classifications)
+- **WaveNet** – model to generate raw audio waveform, used in Speech Synthesis
+- **GAN (Generative Adversarial Network)** – models used to generate synthetic data such as images, videos or sounds that resemble the training data. Helpful for data augmentation. This is the one you give a second pass to get more training on under-exposed data.
+- **XGBoost (Extreme Gradient Boosting)** – an implementation of gradient boosting
+
+### Training data
+
+data quality matters A LOT. garbage in == garbage out.
+
+You got two main types:
+
+- labeled data - you got labels to each dataset, and you can use in supervised data
+- unlabeled data - you got no labels, so you're trying to find patterns or structures in your data.
+
+types of structured data:
+
+- tabular data - just a table rows
+- time-series data - listed in a particular order
+
+types of unstructured data:
+this one has no structure to it, heavy or multimedia. Examples:
+
+- text data - reviews or articles or something
+- image data - like the ones used for object recognition tasks
+
+### Supervised learning
+
+There's nothing to it except that it's always using labeled data, be it continous or discrete labels. You essentially do predictions in two ways:
+
+![supervised-learning](./images/supervised-learning.png)
+
+- Regression: Used to predict a numeric value based on input data. The output variable is continuous, meaning it can take any value within a range
+- Classification: Used to predict the categorical label of input data. The output variable is discrete, which means it falls into a specific category or class. A good method here is the k-nearest neighbors model.
+
+#### Training vs validation vs test
+
+Usually you bin it like this:
+![train-val-test](./images/train-val-test.png)
+
+- training : you literally use this to train your model
+- validation : you use this to tune parameters and validate performance
+- test : you use this to test // evaluate your performance
+
+#### Feature engineering
+
+Basically it's the art of making sure your features//parameters are good for ML and a good representation of behavior.
+
+You use domain knowledge to select and transform raw data into meaningful features.
+
+There's a couple of techniques:
+
+- Feature Extraction – extracting useful information from raw data, such as deriving age from date of birth
+- Feature Selection – selecting a subset of relevant features, like choosing important predictors in a regression model
+- Feature Transformation – transforming data for better model performance, such as normalizing numerical data
+
+How does it look like on STRUCTURED data:
+
+For example you have house data (tabular) and you want to predict housing prices
+
+So you can:
+
+- Feature Creation – deriving new features like “price per square foot”
+- Feature Selection – identifying and retaining important features such as location or number of bedrooms
+- Feature Transformation – normalizing features to ensure they are on a similar scale, which helps algorithms like gradient descent converge faster
+
+How does it look like on UNSTRUCTURED data:
+
+For example you got a bunch of customer reviews
+
+- Feature creation - converting text into numerical features using techniques like TF-IDF or word embeddings
+- Feature creation - extracting image features such as edges or textures using techniques like convolutional neural networks (CNNs)
+
+### Unsupervised learning
+
+You basically want to discover inherent patterns, structures, or relationships within the input data. The machine uncovers the groups themselves. You gotta put the labels in the end.
+
+Common techniques include:
+
+#### Clustering
+
+You group similar data points together into clusters based on their features.
+
+for example, you got a bunch of customer data, like purchasing history, avg order value, prices etc. And you wanna tailor each group with specific marketing strategies.
+
+You basically use **k-means clustering**
+
+![unsupervised-clustering](./images/unsupervised-clustering.png)
+
+#### Association Rule Learning
+
+This is the classic example on figuring out how thing are related, like hey whoever buys bread also tends to buy butter. You basically identify associations between products.
+
+Here you use the **apriori algorithm**.
+
+The outcome is that then the store can place associated products together on the shelves to boost sales.
+
+#### Anomaly Detection
+
+This one is used a lot to detect credit card fraud. You basically identify transactions that deviate significantly from normal behavior.
+
+Here you use **Isolation Forest** technique
+
+Your outcome is a flag on potentially fraudulent transactions.
+
+### semi-supervised learning
+
+The best of both worlds kinda. You use a small amount of labeled data and a large amount of unlabeled data to train systems. Then the partially trained algorithm itself labels the unlabeled data.
+
+The model is then re-trained on the resulting data mix without being explicitly programmed. So like... you give them a hint at the beginning and it does the rest.
+
+![semi-supervised](./images/semi-supervised.png)
+
+### self-supervised learning
+
+You basically have a model generate pseudolabels for its own data without having humans label any data first. Then, using the pseudo labels, solve problems traditionally solved by Supervised Learning.
+
+This is used a LOT on NLPs and image recognition tasks. This is mostly to teach models about what the data "represents".
+
+Here's an example:
+![self-supervised](./images/self-supervised.png)
+
+### Reinforcement learning
+
+RL is a type of Machine Learning where an agent learns to make decisions by performing actions in an environment to maximize cumulative rewards
+
+It learns and learns from mistakes/successes. The main bits are:
+
+- **Agent** – the learner or decision-maker
+- **Environment** – the external system the agent interacts with
+- **Action** – the choices made by the agent
+- **Reward** – the feedback from the environment based on the agent’s actions
+- State – the current situation of the environment
+- Policy – the strategy the agent uses to determine actions based on the state
+
+you use it to have AI play a game, for portfolio management, for autonomous vehicles, and other stuff like that.
+
+The main idea is to maximize the cumulative reward over time.
+
+Here's a good example on how it works
+![reinforcement-learning](./images/reinforcement-learning.png)
+
+### RLHF - reinforcement learning from human feedback
+
+You want to add human feedback so that the model is more aligned with what a human what would choose.
+
+It significantly improves model performance, like for LLMs its good for translations because it's actually like what a human would write, and not just a "technically correct" translation.
+
+Basically you have the model create a response, and you separately have a bunch of human-generated responses.
+
+And then the reward model is presented with both the syntethic and the human one. At some point it figures out what makes a human like a particular response.
+
+A good summary is here:
+
+![RLHF](./images/RLHF.png)
+
+And the steps are just
+
+1. Data collection (bunch of human prompts and responses)
+2. supervised fine-tuning of a language model (you train your model and create responses that get compared to the human ones)
+3. building a separate rewards model (humans indicate what response they liked best, and now this model knows about human preference)
+4. optimize the language model with the reward-based model (You use this model as a reward fcn for the ML)
+
+### Fit, bias, variance
+
+Sometimes your model performance is poor. Causes include:
+
+- overfitting : does great on training data, breaks down on test data.
+- underfitting : does bad on training data, maybe model is too simple or data features are poor
+
+You want a balanced data.
+
+So you measure that level of balance by optimizing bias and variance.
+
+- bias : the difference between predicted and actual data. **High bias == underfitting**. you're far from the truth. You can use a more complex model or increase the number of features.
+- variance : How much the performance with another dataset of similar distribution. **High variance == overfitting**. To reduce you select important features, or splist data into test/train multiple times.
+
+In short you want low variance and low bias:
+
+![under-overfitting](./images/under-overfitting.png)
+
+Here's a good visualization:
+
+![bias-variance](./images/bias-variance.png)
+
+### Model evaluation metrics
+
+#### classification metrics
+
+##### confusion matrix
+
+You can evaluate how good your model was close to get to the truth by using a confusion matrix, and calculating the main 4 following metrics:
+
+- precision : how precise were your predictions out of all the ones you flagged?
+- recall : out of all the positives, how many did you correctly recall?
+- F1 : combo of precision and recall
+- accuracy : how many actual labels did you accurately predict? Only used for balanced dataset. Not great for spam/not spam because most is not spam i think.
+
+![confusion-matrix](./images/confusion-matrix.png)
+
+##### AUC-ROC
+
+Another good one is the AUC-ROC. It's a curve that shows what the true positive compared to false positive looks like at various thresholds, with multiple confusion matrixes.
+
+the idea is that the curve should get as close to being an inverted L.
+
+![auc](./images/auc.png)
+
+#### regression metrics
+
+Some main ones are:
+
+- MAE: mean absolute error
+- MAPE: mean absolute percentage error
+- RMSE: mean root square error
+- R: variance of the model
+
+These are all for continuous values.
+
+### Inferencing
+
+It is when the model makes a prediction made on new data.
+
+So you can either have it
+
+- real time : a chatbot that answers back at you right there and then
+- batch : you analize a bunch of data at once ,you don't care about speed but about accuracy
+
+you got two options at the edge:
+
+- SLM : a small model stored in your phone or a local computer or something. Weaker model, but small latency.
+- LLM: The model is huge, and it's stored on a server. Powerful model, but higher latency.
