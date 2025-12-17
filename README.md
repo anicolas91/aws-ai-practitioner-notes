@@ -652,3 +652,133 @@ Not on the notes but to be honest, it's probably easiest to limit the options of
 - Zero-shot prompting
 - `Few-shot prompting --> you already have a good example to give as reference, hence few-shot`
 - Chain-of-thought prompting
+
+## Section 7: Amazon Q
+
+Amazon Q is a fully managed Gen-AI assistant for your employees trained on the entire company data.
+
+It's built on bedrock, using multiple models, you don't really get to use the models.
+
+It can also create and move data in the company, like create jira tickets and whatnot.
+
+Users get authenticated via an AIM identity center. So they have only access to the documents theyre supposed to have access to.
+
+That IAM identity center can connect to things like Google login, microsoft active directory, etc. So you can use whatever your company already uses for users.
+
+Admin controls exist on amazon Q business, which are essentially guardrails. So you can only use internal data, block topics, and set rules both at the global and local (topic) level.
+
+### Amazon Q business
+
+When doing the walkthrough... user setup was easiest done via "anonymous user" but it costs 200 usd a month. And the other version of amazon Q lite needs you to create a user and tahts complicated. So this is mostly for businesses.
+
+The way it works is:
+
+1. you create an application (and you inmediately have a "preview" link with a frontend)
+2. On data sources you add an index AND connect/add a datasource
+   - index is just like a dictionary where your documents will be "indexed" and the cheap one scales up to 100k docs.
+   - You add a datasource. You have multiple options, like amazon s3, github, google drive, dropbox, etc.
+   - you can select a cadence for updating the data source. Or make it manual and just get a button that says "sync now"
+
+The result from a query will come back with a 'events' which is all the steps the llm made to get you that answer, and 'sources' which is the reference docs.
+
+You can change guardrails to allow the amazon Q to default to the llm general knowledge. But you need the fancier account.
+
+DO NOT FORGET THERE IS AN ONGOING COST TO HAVING AN INDEX. ALWAYS DELETE THE INDEX AFTER USE.
+
+### Amazon Q apps
+
+This service creates Gen AI-powered apps without coding by using natural language, and still ahs access to company's internal data and can connect to plugins and whatnot.
+
+So kinda like figma make, you just give a prompt on the type of app you want without using developers.
+
+### Amazon Q developer
+
+This one seems pretty neat and is a helpful tool for developers. Basically you can:
+
+- Answer questions about the AWS documentation and AWS service selection
+- Answer questions about resources in your AWS account
+- Suggest CLI (Command Line Interface) to run to make changes to your account
+- Helps you do bill analysis, resolve errors, troubleshooting
+
+So for example you want to change a timeout or something, amazon q developer will give you the command you need to change the timeout.
+
+you can also ask things like hey what was the highest cost for q1, and other neat summary stuff.
+
+They seem to also offer an AI code companion similar to github copilot, and it supports all of the mainstream coding languages.
+
+It gives you code suggestions and does some sort of security scan.
+
+This thing is integrated into multiple IDEs, like VS code, visual studio, and jetbrains.
+
+So tl;dr it does:
+
+- Answer questions about AWS developmet
+- Code completions and code generation
+- Scan your code for security vulnerabilities
+- Debugging, optimizations, improvements
+
+This one costs money...
+
+Free tier : free
+pro tier: 19 usd a month, higher limits, more support
+
+### Amazon Q bundles
+
+They offer the following:
+
+- Amazon Q business lite
+- Amazon Q Business pro
+- Amazon Q Developer pro
+
+There is a chatbot window that you can access through the main page.
+
+You have to agree with it having access to stuff in your account. So like if you want to list all your s3 buckets, it can go look and list them. Seems that you have a max limit of 1000 characters per query.
+
+Fun lil fact, turns out that CLI commands you can just run in "CloudShell" which is a little button on the top right that kinda looks like ">\_"
+
+Seems like sometimes the ai chatbot won't give commands or things that are related to "deleting" or anything that is related to security issues.
+
+### Amazon Q for AWS services
+
+They are adding amazon Q on top of other services
+
+- Amazon quicksight : you visualize AWS data on dashboards, you can use Amazon Q to ask questions about your data, and create dashboards just by asking what you want.
+- EC2 : So you got your virtual servers on AWS. Amazon Q gives guidance and suggestions for the right EC2 instance for your needs. you can keep talking to it to make sure your instance is a good fit as your needs evolve.
+- AWS chatbot : Its a way for you to deploy an AWS chatbot in slack or microsoft teams or similar. This bot knows about your AWS account. you can access Amazon Q through this chatbot to better understand AWS services, troubleshoot issues, and identify how to fix stuff.
+- AWS glue : Glue is an ETL service to extract and transfer data across places. Amazon Q can be used to answer basic questions about glue, get links to the documentation, answer questions about ETL scripts, create scripts from scratch, and troubleshoot errors.
+
+### Partyrock
+
+This is some playground to create genAI apps, powered by bedrock.
+
+You don't even need an AWS account or setup. It's kinda like Amazon Q Apps.
+
+The website has already some prebuilt apps as example.
+
+It's basically just a neat UI where you set up your inputs, your system prompt, your model to use, and thats kinda it.
+
+you can use just a prompt to generate an app from scratch. like figma make. So it figures out the widgets you need, how to connect them etc.
+
+Good playground to create apps... and sells amazon bedrock and amazon q.
+
+### Udemy questions
+
+1. What is the main benefit of using Amazon Q Business?
+
+- you can select the best model for your use case -> cant
+- `you can easily integrate with your enterprise systems and data ->true, and apparently that is the main point`
+- you have a wide range of public sources to integrate with ->true, but not main point, andnot all of them are suitable or compatible
+- your ai applications can easily be exposed to your customers -> technically can do that but this is not the default, this is the option you can set up
+
+2. What is NOT an Amazon Q Business capability?
+
+- built-in data integrations with enterprise data sources
+- plugins for enterprise applications
+- `enterprise storage --> seems that you bring this, (or are using s3) not the other way around`
+- Fully managed RAG capability --> offered by amazon Q
+
+3. What is Amazon Q Developer?
+
+- A voice-controlled assistant to perform AWS deployments
+- An external team of AWS developers
+- `An AI coding assistant --> kinda like copilot`
