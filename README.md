@@ -1052,3 +1052,119 @@ you got two options at the edge:
 
 - SLM : a small model stored in your phone or a local computer or something. Weaker model, but small latency.
 - LLM: The model is huge, and it's stored on a server. Powerful model, but higher latency.
+
+### Phases of ML project
+
+It boils down to finding a problem to solve, getting data, figuring out what parts of the data matter, creating a model, checking it works, and deploying.
+
+sorta like this:
+![ML-phases](./images/ML-phases.png)
+
+The key is to continuously monitor the outputs to keep the performance good and fix issues whenever they arize, whether you find drift or anything of hte sort.
+
+TL;DR:
+
+1. Define business goals - value, budget, success criteria, KPIs
+2. ML problem framing - involve data scientists, determine if ML is appropriate
+3. Data processing - data collection, integration, cleanup, formatting, and feature engineering
+4. Model development - training, tuning, evaluation. It iterates and may need further add more feature engineering.
+5. Retrain - look at data and features and see how to improve. Same with hyperparameters.
+6. deployment - you select how to deploy (real-time, serverless, async, etc)
+7. Monitoring - have a system track the performance. You detect early then you can fix stuff.
+8. Iterations - model needs to be continously improved as more data comes in.
+
+What about the data?
+Need to do an exploratory data analysis before you do any feature engineering, so you know what is linked to what.
+
+You can do a correlation matrix, so you can see how variables are linked to each other, and which features would be most important to the model.
+
+### Hyperparameters
+
+Fun fact, hyperparameters are the settings that define the model structure and algos.
+You set it before you train.
+
+Examples include:
+
+- learning rate : how big the steps are when updating weighs. Higher == faster convergence, but you can overshoot.
+- batch size : no of training samples used to update weighs.
+- number of epochs : how many times the model will iterate over the entire training dataset. too few == underfitting. Too many == overfitting.
+- regularization : adjusting balance between simple and complex models. More regularization == less overfitting.
+
+You do hyperparameter tuning to optimize the model performance, so you get better accuracy and less overfitting.
+
+How you do it?
+
+- Grid search
+- random search
+- some automatic service such as sageMaker Automating Model Tuning (AMT)
+
+Main issue, you got overfitting, what is going on?
+
+- your model is good during training but bad with new data.
+- training data was too small and did not represent the whole enchilada.
+- maybe it trained for too long.
+- maybe model was too complex and learned from noise.
+
+How to fix:
+
+- increase training datasize
+- stop training earlier
+- data augmentation (increase diversity in the data)
+- adjust hyperparameters (can't really add more hyperparameters than you originally had. Also usually this is last resort.)
+
+### When is ML not appropriate?
+
+For **deterministic problems**, like when a problem can just be straight-up calculated, then jsut code it up.
+
+If you use ML, like supervise/unsupervised/RL, then you're getting an approximation, never an exact value any time.
+
+Even if LLMs have reasoning capabilities, they are imperfect and again just give you an approximation. So don't use LLMs for something you can just code.
+
+### Udemy questions
+
+1. You are trying to recognize handwritten digits. How do neural network function for this use case?
+
+- Neural networks function like a decision tree algorithm and will create a set of rules
+- neural networks will create a series of linear regression to identify numbers
+- `neural networks will create several layers of interconnected nodes that will identify patterns in data --> this is literally what NNs do, all other options are not true to NNs`
+- neural networks will create a database based on numbers and their pixel data
+
+2. You are building a robot that learns how to cut vegetables. You are rewarding it for parallels and fine cuts. You want the actions to be safe and efficient. Which machine learning approach do you recommend?
+
+- Supervised learning
+- `Reinforcement learning --> you train the robot with rewards and penalties`
+- unsupervised learning
+- self-supervised learning
+
+3. When a model is neither underfitting nor overfitting, it will have…
+
+- `low bias and low variance -> the holy grail of good ML`
+- high bias and high variance
+
+4. Which AI application is used to automatically extract structured data from various types of documents, such as invoices, contracts, and forms?
+
+- computer vision
+- facial recognition
+- fraud detection
+- `intelligent document processing (IDP) -> its in the name`
+
+5. You are building a model to predict the sale price of used cars, based on several attributes such as the brand, total number of kilometers, year of construction, etc… Which machine learning technique is appropriate for this task?
+
+- clustering
+- dimensionality reduction
+- `regression --> mostly because price is a continuous variable`
+- classification
+
+6. What is the goal of feature engineering in the machine learning lifecycle?
+
+- `to transform data and create variables for the model -> basically to make data useful for ML`
+- to collect and clean data
+- to calculate the model performance
+- to maintain the desired level of performance
+
+7. A company develops a machine learning model to predict stock prices. The model performs well on the training data but poorly on new, unseen data. Which option describes the fit of the model?
+
+- it underfits --> you got high bias, meaning you're not good at predicting squat.
+- it has low variance --> then it means its good, not the case
+- `it overfits --> you have high variance, you got different answers across different sets of data, not good`
+- it has high bias --> this is underfitting
