@@ -1236,7 +1236,7 @@ parallel data--> basically you explain different ways to translate the same sent
 
 It can
 
-- remove PII using 'redaction'
+- remove PII using 'redaction' (aws has like 5 options by default that you can redact, like names, phone no, ssn, etc)
 - detect multiple languages
 
 use cases include:
@@ -1245,22 +1245,336 @@ use cases include:
 - automating movie closed captions
 - create metadata to enable searching on recordings.
 
+to improve it you can:
+
+- specify technical terms, acronyms, jargon, etc
+- set **custom vocabulary**
+- provide hints like pronunciation
+- can add **custom language models** (you train the model on your own specific speech)
+
+So instead of getting "my crow services" you actually get "microservices"
+
+You can detect **toxicity** too. It uses ML on the background, and it looks at the tone and inflection of the way the person speaks. Same with the text info.
+
+**It combines audio + text to describe toxicity**
+
+![transcribe](./images/transcribe.png)
+
 ### amazon polly
+
+The opposite of amazon transcribe. Now **you convert text to speech.** It uses deep learning to do so. this way you can have talking apps.
+
+It has some cool advanced features
+
+- lexicons: it can spell out acronyms, like AWS or WWW
+- speech synthesis markup language (SSML): figures out how it should pronounce things, the cadence. like hello <pause> how are you?
+- voice engine: can choose different types of voices
+- speech mark: it knows where a sentence starts/ends in the audio. Good for lip syncing, or highlighting words.
+
+![polly](./images/polly.png)
 
 ### amazon rekognition
 
+You can recognize people, objects, texts, scenes, etc on images and videos using ML.
+
+Basically it helps with:
+
+- labeling
+- text detection
+- face recognition
+- content moderation
+- celebrity recognition
+- detecting labels of companies and such
+- path analysis (for recognizing players in games and stuff)
+
+#### custom labels
+
+You use this to identify your own logos from your companny.
+
+You label training images, with your label and/or product. 100 images or less.
+
+After that the ML figures out what your logo looks like and can detect it.
+
+So you can see on social media if your logo is appearing on pictures and if that is good/bad for your brand.
+
+#### content moderation
+
+You only need 1-5% of human review, the rest is flagged by ML for harmful/bad content.
+
+It's integrated with something called " Amazon augmented AI" for more human review.
+
+So you can also use custom moderation adaptors. An image will pass/fail moderation, and when uncertain it can go for human review//amazon augmented ai (amazon A2I).
+
+TL;DR, you can use rekognition to label your images and see if it passes/fails filters and return to user or not.
+
+It's basically image analysis and detection. Can make your own custom case for your business. and you can train the recognition model by adding your own dataset.
+
+![rekognition](./images/rekognition.png)
+
 ### amazon lex
+
+you make chatbots quickly for your applications using voice and text.
+
+Mostly for self-service bots. A one-stop shop for chatbot building.
+
+It:
+
+- supports multiple languages
+- connects to all other aws stuff, like aws lambda, kendra, connect, comprehend, etc.
+- it figures out the intent to call the correct lambda function to "fulfill the intent"
+- the bot will ask for 'slots' (lambda input functions) that you need.
+
+![lex](./images/lex.png)
+
+You can create a bot in lex with either the **Traditional method** or the **Generative AI** method. For the latter you need bedrock.
+
+On the traditional one, you can start blank, with an example bot, or with a bunch of transcripts.
+
+You can add multiple language, you can select a voice, idle times, etc.
+
+#### intent
+
+For the bot you have to set up an intent. Which is, what will the user likely wnat to do, like. booking a hotel or a car, or some fallback for anything else.
+
+To trigger an intent, you can specify what are likely phrases the user will say to trigger them.
+
+And then you setup the slots, meaning the inputs you need at this intent to acutally call the lambda function.
+
+#### visual builder
+
+You can also figure out hte logic with their visual builder to see how the flow is looking like.
 
 ### amazon personalize
 
+Its a service to build apps with real-time personalized recommendations.
+
+this is what **amazon** uses to recommend items you'd be interested in, based on history, interactions, etc.
+
+It is also really good at customized direct marketing.
+
+Main bit is that this takes days to implement. And integrates with SMS and stuff like that.
+
+![personalize](./images/personalize.png)
+
+#### recipes
+
+These are algorithms to use for specific use cases.
+
+For example, you wnat to:
+
+- recommend items to a user
+- recommend trending items
+- ranking items for a user
+- getting similar items
+- recommend next best action
+
+All of this is recommending something for your user... personalized to their own choices.
+
 ### amazon textract
+
+Extracting text from any scanned data using AI and ML.
+
+Wide array of applications, should handle **handwriting**, various format documents, **forms and tables**, etc.
+
+Amazon textract can extract all the raw text, and understand the layout of your page.
+
+![textract](./images/textract.png)
+
+It can also answer queries, analyze expenses (receipts), IDs, and other common types of documents.
 
 ### amazon kendra
 
+**Its a document search service using ML**.
+
+It extracts answers from a document (text, pdf, html, etc).
+
+It basically **indexes all the data automatically** in the document.
+
+Very good natural languages capabilities.
+
+It can also incrementally learn and figure out preferred results.
+
+Overall a search engine on steroids.
+
+![kendra](./images/kendra.png)
+
+TL;DR you wanna find something in the document? ask kendra.
+
 ### amazon mechanical turk
 
-### amazon augmented AI
+The idea is that you have **access to a distributed workforce**, where you get a bunch of humans do a lot of simple tasks.
+
+Like image labeling.
+
+The idea is the mechanical turk, was some "robot" playing chess that was actually controlled by some dude inside.
+
+**used a lot for simple, easily distributed tasks**:
+
+- image classificaiton
+- data collection
+- recommendation reviews
+
+Deep integration with amazon A2I, sagemaker ground truth, etc.
+
+Workers will work on those with a good reward. its a market.
+
+![mechanical-turk](./images/mechanical-turk.png)
+
+### amazon augmented AI (A2I)
+
+your machine learning models are making predicitons in production, but you want humans to keep an eye on it.
+
+**its human oversight of the ML predictions.**
+
+so for high confidence predicitons, all is good, for low confidences, the results get sent to a human.
+
+The reviewed data (with human in hte loop) can be used to further finetune the ML.
+
+who can review?
+
+- you employees
+- contracted employees at AWS
+- mechanical turk
+
+some vendors are already pre-screened for security requirements.
+
+The ML can be done in AWS or elsewhere like sagemaker, or rekognition or whatever.
+![a2i](./images/a2i.png)
+
+Its two steps:
+
+1. you create a human review workflow (common ones are **textract** for key-value extraction, **rekognition** for image moderation, or some custom version)
+
+- You can set a threshold for the confidence that would trigger a human review, or some percentage of the incoming data.
+
+2. create and start a human in the loop
+
+- Then you can set up a worker template, telling people what they should be looking for.
+- set up who will review this, mechanical turk, or your private team, or a vendor in AWS marketplace
 
 ### amazon comprehend medical & transcribe medical
 
+There is a version for amazon transcribe that is specifically geared for the medical space.
+
+It is specialized because of HIPAA compliance.
+
+It specializes in medical terminologies (medicines, conditions, etc).
+
+you can either use the microphone or upload audios.
+
+You can use "comprehend medical" to:
+
+- detect useful information like notes, summaries, prescriptions, test results, etc
+- figures out what is protected health information
+- it stores it all in amazon s3
+- you can do real-time analysis with _kinesis data firehose_.
+
+basically you use transcribe --> convert to text --> analyze with comprehend
+
+It figures out the relationships, the profile, and all that.
+
+![comprehend-medical](./images/comprehend-medical.png)
+
 ### amazon's hardware for AI
+
+**Amazon EC2 is the MOST POPULAR PRODUCT on amazon**.
+
+EC2 = elastic computing cloud. It's infrastructure as service.
+
+you can:
+
+- rent virtual machines in the cloud (EC2)
+- store data virtually (EBS)
+- Distributing loads (ELB)
+- scaling services (ASG)
+
+you set up you're basically "building a computer":
+
+- os
+- computer power and cores
+- storage
+- ram
+- network card
+- firewall rules
+
+to launch you can use a script from the get to.
+
+Some instances are gpu-based (P3, P4, P5, ... G6...)
+
+these ones are used a lot for ML//AI.
+
+AWS went one level further and used something called "AWS trainium". Where it is using specific **chips built specifically for deep learning**.
+
+- AWS trainium
+  Trn I has I 6 trainium accelerators
+  50% cost reduction when training a model
+
+Also AWS inferentia, its a chip built to deliver inference at high performance and low cost.
+
+- AWS inferentia
+  4x throughput and 70% cost reduction
+  INF2 and Inf2 are powered by inferentia.
+
+These are more environmentally friendly because they use less electricity.
+
+### Udemy questions
+
+1. You should use Amazon Transcribe to turn text into lifelike speech using deep learning.
+
+- true
+- `false --> thats amazon polly`
+
+2. A company would like to implement a chatbot that will convert speech-to-text and recognize the customers' intentions. What service should it use?
+
+- transcribe
+- rekognition
+- connect
+- `lex --> good one-stop-shop for making a chatbot`
+
+3. You would like to find objects, people, text, or scenes in images and videos. What AWS service should you use?
+
+- `rekognition --> this is specific for image recognition analysis`
+- polly
+- kendra
+- lex
+
+4. A start-up would like to rapidly create customized user experiences. Which AWS service can help?
+
+- `personalize --> it litearlly is what amazon.com uses, so`
+- kendra
+- connect
+
+5. A research team would like to group articles by topics using Natural Language Processing (NLP). Which service should they use?
+
+- Translate
+- `Comprehend --> its literally meant to comprehend whats in the text and automatically organizes them in groups`
+- Lex
+- Rekognition
+
+6. A company would like to convert its documents into different languages, with natural and accurate wording. What should they use?
+
+- Transcribe
+- polly
+- `translate --> simple name, it does what its named after`
+- wordTranslator
+
+7. Which AWS service makes it easy to convert speech-to-text?
+
+- connect
+- translate
+- `transcribe --> like the name, it just transcribes speech to text`
+- polly
+
+8. Which of the following services is a document search service powered by machine learning?
+
+- Translate
+- `Kendra --> ask kendra!! powerful search indexing engine of sorts`
+- Comprehend
+- Polly
+
+9. Which AWS service enables human reviews of ML predictions?
+
+- Amazon sagemaker jumpstart
+- Amazon kendra
+- `Amazon augmented AI (Amazon A2I) --> a2i is to set up human reviews in the process`
+- AWS deepracer
