@@ -1168,3 +1168,99 @@ Even if LLMs have reasoning capabilities, they are imperfect and again just give
 - it has low variance --> then it means its good, not the case
 - `it overfits --> you have high variance, you got different answers across different sets of data, not good`
 - it has high bias --> this is underfitting
+
+## Section 9: AWS managed AI services
+
+AWS AI services are pre-trained ML services, they are always available, they work across all regions, and perform well.
+
+They are mostly pay-as-you-use
+
+You also can setup a provisioned throughput if you already know what kinda workload you're expecting, for more savings.
+
+Here's a bunch of the services:
+
+![aws-ml-services](./images/aws-ml-services.png)
+
+### Amazon comprehend
+
+This is mainly for Natural Language Processing – NLP. It Uses **machine learning to find insights and relationships in text**. Like sentiment, keywords, language, etc.
+
+Fully managed and serverless service. It automatically organizes a collection of text files by topic
+
+Sample use cases:
+
+- analyze customer interactions (emails) to find what leads to a positive or negative experience
+- Create and groups articles by topics that Comprehend will uncover
+
+you can use comprehend to classify docs using categories that you define. And of course, it supports a bunch of filetypes.
+
+#### Named entity recognition NER
+
+Comprehend can extract cool things like names, places, organizations, dates, etc.
+
+So you can get from a bunch of text all the main bits.
+
+You can also make a custom entity, as long as you give it examples that you can train this thing on.
+
+#### TL;DR
+
+**Can do custom classification and custom entity recognition**.
+
+**Can do real-time AND async**.
+
+You need at least 10 examples for custom classifications.
+
+![comprehend](./images/comprehend.png)
+
+### Amazon translate
+
+It's a natural and accurate language translation.
+
+Amazon Translate allows you to localize content (such as websites and applications) for international users, and to easily translate large volumes of text efficiently.
+
+You can translate text directly, or a bunch of documents you upload or share via s3.
+
+**Can do real-time AND async//batch**.
+
+There are some metrics that amazon shows for translations. Like character count, time, throttle, etc.
+
+You can also add your own terminology (domain specific words that you know how to translate)
+
+parallel data--> basically you explain different ways to translate the same sentence based on context and tone. Friends vs office.
+
+![translate](./images/translate.png)
+
+### amazon transcribe
+
+**Automatically convert speech to text**. Uses a deep learning process called automatic speech recognition (ASR) to convert speech to text quickly and accurately.
+
+It can
+
+- remove PII using 'redaction'
+- detect multiple languages
+
+use cases include:
+
+- transcribing client calls
+- automating movie closed captions
+- create metadata to enable searching on recordings.
+
+### amazon polly
+
+### amazon rekognition
+
+### amazon lex
+
+### amazon personalize
+
+### amazon textract
+
+### amazon kendra
+
+### amazon mechanical turk
+
+### amazon augmented AI
+
+### amazon comprehend medical & transcribe medical
+
+### amazon's hardware for AI
