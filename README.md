@@ -1703,3 +1703,83 @@ On the **pipelines**, you automate the process of building, training and deployi
 For the pipelines, there is an established procedure:
 
 ![sagemaker-pipelines](./images/sagemaker-pipelines.png)
+
+### Consoles
+
+You can either use **Jumpstart** to quickly deploy some model based on some slight code + foundation model, or **Canvas** which is code-free and walks your through the whole enchilada. Both connect to anything AWS has to offer.
+
+Jumpstart looks like this:
+![sagemaker-jumpstart](./images/sagemaker-jumpstart.png)
+
+and canvas looks like this:
+![sagemaker-canvas](./images/sagemaker-canvas.png)
+
+It also works well with MLflow, which is an open-source service, so you can launch it on sagemaker studio.
+
+### Summary
+
+- SageMaker: end-to-end ML service
+- SageMaker Automatic Model Tuning: tune hyperparameters
+- SageMaker Deployment & Inference: real-time, serverless, batch, async
+- SageMaker Studio: unified interface for SageMaker
+- SageMaker Data Wrangler: explore and prepare datasets, create features
+- SageMaker Feature Store: store features metadata in a central place
+- SageMaker Clarify: compare models, explain model outputs, detect bias
+- SageMaker Ground Truth: RLHF, humans for model grading and data labeling
+- SageMaker Model Cards: ML model documentation
+- SageMaker Model Dashboard: view all your models in one place
+- SageMaker Model Monitor: monitoring and alerts for your model
+- SageMaker Model Registry: centralized repository to manage ML model versions
+- SageMaker Pipelines: CICD for Machine Learning
+- SageMaker Role Manager: access control
+- SageMaker JumpStart: ML model hub & pre-built ML solutions
+- SageMaker Canvas: no-code interface for SageMaker
+- MLFlow on SageMaker: use MLFlow tracking servers on AWS
+
+#### xtra features
+
+- network isolation mode: run job containers without internet access. for security. Can't even access S3.
+- Sagemaker DeepAR forecasting algorithm: to forecast time-series data, leverages a recurrent neural network RNN
+
+### Udemy questions
+
+1. You have collected data from various parts of your company and built a compelling case to solve a business problem with an ML model. Which service allows you to build, train and deploy machine learning models in one place?
+
+- `amazon sagemaker --> exclusively for ML`
+- amazon bedrock --> for ai
+- amazon lex --> for chatbots
+- amazon Q developer --> for gen-ai and business
+
+2. Which SageMaker service allows you to visualize bias and increase visibility into the model’s behavior?
+
+- amazon sagemaker data wrangler -> this is just for data analysis
+- amazon sagemaker jumpstart --> this is to deploy ml models with little to no code
+- amazon augmented AI (A2I) --> this is to loop a human into ai evals
+- `amazon sagemaker clarify --> you clarify what are the issues with the ML model... like bias`
+
+3. Which service enables you to provide better transparency for your models by documenting the risk and rating of the model, as well as custom information?
+
+- AWS AI service cards --> just a card with documentation on an ai model
+- Amazon sagemaker clarify --> this is for evals on models
+- Amazon sagemaker role manager --> this is to define user roles
+- `Amazon sagemaker Model Cards --> this is literally to get all the info on a model, including risk and rating`
+
+4. Your company does not have access to dedicated data scientists and would like to start creating machine-learning models using a no-code solution. Which service do you recommend?
+
+- `Amazon sagemaker canvas --> for artistic no-code people`
+- amazon sagemaker jumpsstart --> needs a bit of code
+- amazon sagemaker data wrangler --> for data analysis, not for deployment
+- amazon sagemaker feature store --> this is just to store model features
+
+5. Your company is implementing a solution to predict the weather and would like to start with already-existing ML models and later customize them. What do you recommend?
+
+- Amazon bedrock --> this is ai
+- `amazon sagemaker jumpstart --> this is it, you can use a pre-built use case and go from there`
+- amazon sagemaker canvas --> this is if you had no code, and you don't even know much about your project
+- amazon sagemaker ground truth --> this is for evals with humans
+
+6. You have created a model that analyzes video frames from tennis games and generates predictions about who will win each point as players play. What sort of model deployment do you need?
+
+- asynchronous -> no good, has latency, and its mostly suitable for tasks that don't need inmediate results
+- `real time -> maybe because you need a prediction as the game unfolds.`
+- batch -> not good for streaming data like sports, but for a bunch of data you already had and needs processing.
