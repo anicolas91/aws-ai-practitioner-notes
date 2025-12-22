@@ -1578,3 +1578,128 @@ These are more environmentally friendly because they use less electricity.
 - Amazon kendra
 - `Amazon augmented AI (Amazon A2I) --> a2i is to set up human reviews in the process`
 - AWS deepracer
+
+## Section 10: amazon Sagemaker (AI) - deep dive
+
+Its a fully managed AWS service to create an ML model.
+
+Usually it is difficult to do all the ML dev steps + provisioning deployment servers
+
+it's an end-to-end service:
+![sagemaker](./images/sagemaker.png)
+
+It has a ton of built-in algorithms that would otherwise have been inported in a library, such as:
+
+- supervised algos:
+  - linear regression and classification
+  - KNN algorithms (for classification)
+- unsupervised algos:
+  - PCA
+  - K-means
+  - anomaly detection
+- image processing: classificaiton, detection, etc
+- textual algos: NLP, summarization
+
+### Automatic model tuning AMT
+
+You define the objective metric, and AMT figures out the best hyperparameters ranges, search strategy, max runtime and stop conditions.
+
+It saves you time and money because it will stop things if they don't work out.
+
+### Model deployment and inference
+
+To deploy you got four options:
+
+- real-time: one prediction at a time
+- serverless: idle periods between traffic spikes, can tolerate cold starts
+- asynchronous: you send big data up to 1GB, you get long processing times, and you need near-real time latency. Need to stage data on s3
+- batch: multiple predictions at once (entire dataset). Need to stage data on S3
+
+Here's a summary:
+
+![sagemaker-comparison](./images/sagemaker-comparison.png)
+
+You tend to work with sagemaker studio, which is like a UI you can use as a team. Seems that you can use jupyter notebooks and flat-out code on this UI.
+
+Sagemaker studio is an end-to-end ML development from a unified interface, so you do development all the way to deployment and automation.
+
+### Data wrangler
+
+This interface is for data... wrangling
+
+From data exploration, to cleanup, extraction, preparation, feature engineering, etc.
+
+It has SQL support
+
+It has a data quality tool to figure out datatypes and what you have missing.
+
+![sagemaker-wrangler](./images/sagemaker-wrangler.png)
+
+#### What are ML features?
+
+**Features are inputs to ML models used during training and used for inference.**
+
+You need to have high-quality features in all your datasets for you to reuse.
+
+You can use **Feature Store** to ingest data from various sources and create your features automatically as needed. You can publish these features directly from the Wrangler into the Feature Store, and find them on Sagemaker Studio.
+
+### Clarify
+
+this one evaluates foundation models, like the friendliness or humor of the model.
+
+You can use humans to evaluate the foundation model(s). Be it an AWS managed team or your own people.
+
+You can use built-in datasets or your own. and you can use built-in metrics and algorithms.
+
+![sagemaker-clarify](./images/sagemaker-clarify.png)
+
+#### Explainability
+
+You can use sagemaker clarify (its a set of tools) to understand how/why the ML model is making some predictions.
+
+Basically you study the cause/effect (Explainability) of the ml model inputs and the predicted output. It should give an idea of the effect of each input parameter.
+
+You can also use it to debug once it's deployed.
+
+So basically you use this one to answer questions like:
+
+- “Why did the model predict a negative outcome such as a loan rejection for a given applicant?”
+- “Why did the model make an incorrect prediction?”
+
+#### Human bias
+
+We want to detect and explain biases in our models. So we measure that using statistics, and some default set of inputs.
+
+#### Ground truth
+
+- RLHF= reinforcement learning from human feedback
+
+We want to align a model to human preferences and so we add the 'human feedback' on the reward function
+
+- Human feedback for ML
+  You literally do data annotation or evaluation by hand.
+  you create your own labels.
+
+Reviewers can be: AWS mechanical turk workers, your employees, 3rd party vendors
+
+**Sagemaker ground truth plus = label data**
+
+### ML governance
+
+Sagemaker helps with:
+
+- Model cards: essential model info, intended use, risk, training details
+- model dashboard: centralized repo with all info of all models
+- role manager: defines roles for people, MLOps, data scientist, etc
+
+On the **model dashboard**, expect mlflow stuff. you can track which models are deployed for inference. It helps you find models that violate thresholds you set for data quality, model quality, bias, explainability
+
+On the **model monitor**, you literally monitor the quality of your model, be it continously or on a schedule. It alers when stuff drifted, so you can fix it.
+
+On the **model registry**, you basically have a repo to track, manage, and version ML models. you can **manage the approval status of a model**, automate model deployment, share models, etc.
+
+On the **pipelines**, you automate the process of building, training and deploying an ML model. IT's CI/CD. And it lets you automatically train 100s of models.
+
+For the pipelines, there is an established procedure:
+
+![sagemaker-pipelines](./images/sagemaker-pipelines.png)
