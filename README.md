@@ -1783,3 +1783,311 @@ It also works well with MLflow, which is an open-source service, so you can laun
 - asynchronous -> no good, has latency, and its mostly suitable for tasks that don't need inmediate results
 - `real time -> maybe because you need a prediction as the game unfolds.`
 - batch -> not good for streaming data like sports, but for a bunch of data you already had and needs processing.
+
+## Section 11: AI challenges and responsibilities
+
+You care about how your stuff acts, behaves, and interacts with the system. you got 4 main sections:
+
+- Responsible AI : making things transparent and trustworthy
+- security: making business data safe, confidential, integrity, available, etc
+- Governance: improve trust... so have policies guidelines and mechanisms to oversee the things
+- compliance : make sure you adhere to regulations of that industry you work on
+
+### AWS services - responsible AI
+
+- amazon bedrock : human evals
+- guardrails for amazon bedrock : filter content, blocking topics, redacting PII
+- sagemaker clarify : FM evaluation on bias, robustness, toxicity ,etc.
+- sagemaker data wrangler : fix bias by balancing the dataset
+- sagemaker model monitor : quality analysis in prod
+- A2I : human review of AI
+- governance : role manager, model cards, model dashboard
+
+**AWS AI service cards** : responsible AI documentation. It has info on the model, intended use case, responsible AI choices, and best practices.
+
+#### Interpretability trade-offs
+
+You want the model to have interpretability. so you can understand the why and how.
+
+you usually have:
+
+![interpretability](./images/interpretability.png)
+
+You also wnat to have good explainability. You want to be able to look at inputs and outputs and explain without understanding exactly how the model came to the conclusion
+
+The models that have high interpretability are the ones that are used for classification and regression tasks, like this:
+
+![trees](./images/trees.png)
+
+decision trees are easy to intepret and visualize.
+
+When your model is not that interpretable, partial dependence plots are good for explainability. you can see how one variable affects the result when you keep everything else constant.
+
+![pdp](./images/pdp.png)
+
+#### Human-centered design for explainable AI
+
+Basically you approach AI development with priorities for humans needs. You focus on:
+
+- design for amplified decision making : want to minimize risk/errors when using AI in a high pressure environment
+- design for unbiased decision making : decision free from bias, so need to recognize/mitigate biases. Understand that you can't really get rid of it all.
+- design for human and AI learning : AI learning from the human... some personalization needed to make sure user needs are met. Also the design needs to be human friendly.
+
+### AI capabilities and challenges
+
+Pros:
+
+- Adaptability
+- Responsiveness
+- Simplicity
+- Creativity and exploration
+- Data efficiency
+- Personalization
+- Scalability
+
+Cons:
+
+- Regulatory violations
+- Social risks
+- Data security and privacy concerns
+- Toxicity: offensive, inappropriate or disturbing content. It's a challenge to define toxicity, and the line between restricting and censoring. You can use guardrails to filter unwanted content. And make sure training data is curated.
+- Hallucinations: things that sound true/plausible but are incorrect. LLMs do it a lot because of the next-word probability. Need to educate users. Ensure verifications independently.
+- Interpretability
+- Nondeterminism
+- Plagiarism and cheating: people can use AI to cheat in class, or copying or lying on job applications. Hot debated topic. Difficult to track the source. Same with genAI images.
+- prompt misuses:
+  - poisoning: you poison. You add malicious/biased data into training data. So then the model will answer with harmful outputs.
+  - prompt injection: you add an instruction to the prompt.
+  - exposure : you convince the model to share info about the user.
+  - prompt leaking : you ask the preivous prompt or the system prompt.
+  - jailbreaking : you convince the model to circumvent guardrails or restrictions. you can use multi-shot samples to make the ai forget guardrails.
+
+### compliance for AI
+
+Some industries have an extra level of compliance, like financial, aerospace, healthcare etc.
+
+If you have to comply with some regulatory framework, then you have a regulated workload and you need **compliance**.
+
+Current compliance challenges include:
+
+- Complexity and Opacity: Challenging to audit how systems make decisions
+- Dynamism and Adaptability: AI systems change over time, not static
+- Emergent Capabilities: Unintended capabilities a system may have
+- Unique Risks: Algorithmic bias, privacy violations, misinformation…
+  - Algorithmic Bias: if the data is biased (not representative), the model can perpetuate bias
+  - Human Bias: the humans who create the AI system can also introduce bias
+- Algorithm accountability: Algorithms should be transparent and explainable, but its difficult. you got regulations in the EU “Artificial Intelligence Act” and US (several states and cities) that promote fairness, non-discrimination and human rights
+
+AWS has 140 security standards and certs: HIPAA, NIST, ENISA, PCI DSS, etc.
+
+you can create model cards for your models. You can include:
+
+- source citations and data origin documentation.
+- Details about the datasets used, their sources, licenses, and any known biases or quality issues in the training data.
+- Intended use, risk rating of a model, traning details and metrics
+
+really good for auditing.
+
+### Governance for AI
+
+Governance is about managing, optimizing and scaling the whole AI enchilada. Youre BUILDING TRUST. And you're trying to avoid a lawsuit.
+
+You need a governance framework, like for example:
+
+- Establish an AI Governance Board or Committee – this team should include representatives from various departments, such as legal, compliance, data privacy, and Subject Matter Experts (SMEs) in AI development
+- Define Roles and Responsibilities – outline the roles and responsibilities of the governance board (e.g., oversight, policy-making, risk assessment, and decision-making processes)
+- Implement Policies and Procedures – develop comprehensive policies and procedures that address the entire AI lifecycle, from data management to model deployment and monitoring
+
+some of the AWS tools that are used for governance include:
+
+- AWS Config
+- AWS Artifact
+- Amazon Inspector
+- AWS CloudTrail
+- AWS Audit Manager
+- AWS Trusted Advisor
+
+For the governance itself, you need to figure out 3 things:
+
+1. policies : principles, guidelines, and responsible AI considerations
+2. Review Cadence : combination of technical, legal, and responsible AI review
+3. Review Strategies : technical/nontechnical reviews, testing and validation procedures, and a decision-making framework.
+4. transparency standards : you need to publish info about your models, documentation on limitations, and a way for people to give feedback.
+5. team training requirements: Train on relevant policies, guidelines, and best practices. Syou need a training/cert program in your company.
+
+For the data governance, you need:
+
+1. responsible AI : responsible framework, and monitoring. And educating your team on this.
+2. governance structure and roles : you need a data governance commitee. define clear responsiblities. PRovide training and support for people.
+3. data sharing and collaboration: figure out data sharing agreements, and how to give access to data without compromising ownership.
+
+#### Data management concepts
+
+- Data Lifecycles – collection, processing, storage, consumption, archival
+- Data Logging – tracking inputs, outputs, performance metrics, system events
+- Data Residency – where the data is processed and stored (regulations, privacy requirements, proximity of compute and data)
+- Data Monitoring – data quality, identifying anomalies, data drift
+- Data Analysis – statistical analysis, data visualization, exploration
+- Data Retention – regulatory requirements, historical data for training, cost
+
+#### data lineage
+
+once you have your data you need to cite your sources. you need:
+
+- Source Citation : Attributing and acknowledging the sources of the data, as well as relevant licenses, terms of use, or permissions
+- Documenting Data Origins : Details of the collection process, methods used to clean and curate the data and Pre-processing and transformation to the data
+- Cataloging – organization and documentation of datasets
+
+This is helpful for transparency, traceability and accountability
+
+### Security and privacy for AI systems
+
+- Threat Detection : You want to catch when youre generating fake content, manipulated data, automated attacks, so you need to deploy AI-based threat detection systems... and you need to analyze network traffic, user behavior, and other relevant data sources
+- Vulnerability Management : Identify vulnerabilities in AI systems like software bugs, model weaknesses... you also want to conduct security assessment, penetration testing and code reviews. Same with patch management and update processes
+- Infrastructure Protection : Secure the cloud computing platform, edge devices, data stores. you want to set up access control, network segmentation, encryption, and Ensure you can withstand systems failures
+- Prompt Injection : Manipulated input prompts to generate malicious or undesirable content. For these you need to implement guardrails: prompt filtering, sanitization, validation
+- Data Encryption : you have to encrypt data at rest and in transit, and manage encryption keys properly and make sure they’re protected against unauthorized access
+
+Here's an example of prompt injection:
+
+![prompt-injection](./images/prompt-injection.png)
+
+### Monitoring AI systems
+
+You have 3 bits you can monitor:
+
+- Performance Metrics
+  - Model Accuracy – ratio of positive predictions
+  - Precision – ratio of true positive predictions (correct vs. incorrect positive prediction)
+  - Recall – ratio of true positive predictions compare to actual positive
+  - F1-score – average of precision and recall (good balanced measure)
+  - Latency – time taken by the model to make a prediction
+- Infrastructure monitoring (catch bottlenecks and failures)
+  - Compute resources (CPU and GPU usage)
+  - Network performance
+  - Storage
+  - System Logs
+- Bias and Fairness, Compliance and Responsible AI
+
+### AWS shared responsiblity model
+
+Essentially, AWS is responsible for some, we are for some, and together we're responsible for the rest.
+
+see this diagram:
+
+![responsibilities](./images/responsibilities.png)
+
+Shared controls include: Patch Management, Configuration Management, Awareness & Training
+
+### Secure data engineering - best practices
+
+- Assessing data quality
+  - Completeness: diverse and comprehensive range of scenarios
+  - Accuracy: accurate, up-to-date, and representative
+  - Timeliness: age of the data in a data store
+  - Consistency: maintain coherence and consistency in the data lifecycle
+  - Data profiling and monitoring
+  - Data lineage
+- Privacy-Enhancing technologies
+  - Data masking, data obfuscation to minimize risk of data breaches
+  - Encryption, tokenization to protect data during processing and usage
+- Data Access Control
+  - Comprehensive data governance framework with clear policies
+  - Role-based access control and fine-grained permissions to restrict access
+  - Single sign-on, multi-factor authentication, identity and access management solutions
+  - Monitor and log all data access activities
+  - Regularly review and update access rights based on least privilege principles
+- Data Integrity
+  - Data is complete, consistent and free from errors and inconsistencies
+  - Robust data backup and recovery strategy
+  - Maintain data lineage and audit trails
+  - Monitor and test the data integrity controls to ensure effectiveness
+
+TL;DR... make sure you have safe ways to store your data, backups, login/auth systems, and audit trails
+
+### Generative AI Security scoping matrix
+
+there are 5 levels, each with increasing level of ownership for the security:
+
+![genai-scoping](./images/genai-scoping.png)
+
+### MLOps
+
+You want a system that deploys, monitors, and systematically monitors.
+
+Key principles include:
+
+- version control
+- automation of all stages
+- CI continuous integration
+- CD continuous delivery
+- Continuous retraining
+- Continous monitoring
+
+In short you want something like this:
+![mlops](./images/mlops.png)
+
+### Udemy questions
+
+1. What isn’t a capability of Gen AI?
+
+- personalization
+- scalability
+- `determinism -> its stochastic`
+- simplicity
+
+2. What is Responsible AI?
+
+- The security and compliance guidelines that are within the AWS shared responsibility framework. -> this applies to ml too, so no
+- Enhance your business by adding creativity, productivity, and connectivity. --> unrelated
+- `Mitigating potential risks and negative outcomes that can emanate from an AI system --> Apparently this is it, it's about mitigating risk`
+- Responsible AI refers to standards of upholding responsible practices that are exclusively needed for generative AI systems --> its not limited to genAI
+
+3. Which of the following is NOT a challenge associated with responsible AI?
+
+- data security
+- `scalability --> this is just a dev challenge`
+- toxicity
+- hallucinations
+
+4. Which of the following helps with processes that define, implement, and enforce compliance?
+
+- Veracity and robustness -> the focus on the accuracy, truthfulness, and reliability of the outputs.
+- privacy and security -> primarily focus on protecting data and systems from unauthorized access, breaches, and misuse.
+- `Governance -> it ensures that all practices align with established standards and regulations.`
+- Fairness -> it focuses on creating unbiased responses
+
+5. A model is making decisions about who can obtain loans based on several criteria. They are worried about bias, and they need to understand how the model is making decisions. Which core dimension of responsible AI is relevant in this case?
+
+- Transparency -> this is liek for audits and how data got extracted
+- Veracity and robustness
+- Safety -> this is just to prevent leaks and stuff
+- `Explainability -> they want to understand how the model makes decisions, the explanation as to why it does what`
+
+6. Where can you find information about the responsible AI practices that AWS has implemented for their AI services?
+
+- AWS marketplace
+- `AWS AI service cards --> these cards provide detailed information about the responsible AI practices AWS implements for its services`
+- AWS SkillBuilder
+- AWS Artifact
+
+7. How would you define interpretability for a model?
+
+- A model where you can influence the predictions and behavior by changing aspects of the training data.
+- A model that avoids causing harm in its interactions with the world.
+- `A model that provides transparency into a system so a human can explain the model's output -> interpretability involves providing clear transparency into how a model operates as a whole`
+- A model that can explain its decision in human language by using generative AI --> this is only one aspect of interpretability - communication
+
+8. Which HCD (Human Centered Design) principle should an organization use to help decision-makers prevent mistakes in stressful or high-pressure environments?
+
+- `Design for amplified decision-making -> it emphasizes creating systems that enhance decision-making in high-pressure environments`
+- design for environmental decision-making --> it was not even on the list studied
+- design for unbiased deicison-making
+- design for human and AI learning
+
+9. A Gen AI chat outputs sensitive PII data from its training data into responses. What risk is this illustrating?
+
+- Jailbreaking -> you trick the ai to do bad stuff against guardrails
+- prompt leaking -> you share what your previous prompt had or the system one
+- `exposure --> you expose accidentally the PII from the user`
+- hijacking -> some bad person taking over/ redirecting responses somewhere else
