@@ -2348,3 +2348,100 @@ You use root user and sudo.
 This instance on details will have a public address. Make sure it has http on the directory when you run it on a browser.
 
 Notice that the **public IP will change** if you stop/start the instance. The private IP will always stay the same however.
+
+### AWS lambda
+
+It's virtual functions, and it's serverless. Short executions, they run on demand, and is automatically scaled.
+
+Here's a comparison:
+
+![lambda-vs-ec2](./images/lambda-vs-ec2.png)
+
+benefits include:
+
+- Easy Pricing: Pay per request and compute time. Free tier of 1,000,000 AWS Lambda requests and 400,000 GBs of compute time
+- Integrated with the whole AWS suite of services
+- Event-Driven: functions get invoked by AWS when needed
+- Integrated with many programming languages
+- Easy monitoring through AWS CloudWatch
+- Easy to get more resources per functions (up to 10GB of RAM!)
+- Increasing RAM will also improve CPU and network!
+
+you can use docker images on lambda, but AWS prefers you run those on EC2 or Fargate.
+
+Also it's really neat to have a schedule via CRON.
+
+Pricing is super cheap.
+
+- per calls = First 1M requests are free, and any after is like 20 cents per 1M.
+- per duration = 400K GB-secs is free, after that limits seconds by GB ram function. and 1usd per 600K GB-secs
+
+It's super cheap and SUPER popular.
+
+here's an example:
+
+![lambda-example](./images/lambda-example.png)
+
+On the main site you can see the cost per invocations via a cool animation.
+
+to create a function you can:
+
+- author from scratch
+- choose a blueprint (some sample script)
+- use a container image
+
+so you:
+
+1. select a function
+2. give it a name
+3. select execution role (permissions): you either create a new one or you choose one already in your system
+4. you can explore your code script via 'code' tab
+5. you can test it
+6. you can edit your key values on your `event JSON` during testing
+7. You can save your test event so you can try it many times
+8. you can track it via cloudwatch logs
+9. You can edit basic settings suchas ephemeral storage, timeout (max 15 mins), and the execution role (when you made it it gives this role permission to write to cloudwatch).
+10. You can add a trigger, which makes this function run. Like for example some new data coming into s3.
+
+### Amazon Macie
+
+This is a security/privacy service that uses ML and pattern recognition to discover and protect your sensitive data in AWS.
+
+It finds sensitive data in your S3 buckets.
+
+![macie](./images/macie.png)
+
+### AWS config
+
+This one helps with auditing and recording compliance of your AWS resources
+
+You can store data in s3 and analyze by athena.
+
+You can answer questions like:
+
+- Is there unsrestricted SSH access to my groups?
+- do my buckets have any public access?
+- how has my ALB config changed over time?
+
+you can receive alerts for any changes.
+
+This one is per region, but you can make multiple, one per region, and aggregate them all.
+
+you can also check who changed what, basically who to blame.
+
+NOT FREE
+
+You can check the configuration of your resources against rules that you define.
+
+The dashboard will tell you:
+
+- which rule(s) are non-compliant
+- which security groups are non-compliant against all rules.
+
+You can use the dashboard to look at your security group, and then you can find that security group and can edit stuff so you make them compliant.
+
+Your **compliance timeline** will show when it went compliant/noncompliant
+
+Your **configuration timeline** will show what changed
+
+### Amazon inspector
