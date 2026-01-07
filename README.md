@@ -2445,3 +2445,20 @@ Your **compliance timeline** will show when it went compliant/noncompliant
 Your **configuration timeline** will show what changed
 
 ### Amazon inspector
+
+Amazon inspector does automated security assessments.
+
+it looks for software vulnerabilities on:
+
+- EC2 instances
+- container images pushed to amazon ECR
+- lambda functions
+
+It reports findings on the AWS security hub, and amazon event bridge.
+
+It does a continuous scanning of the infrastructure, will look at:
+
+- package vulnerabilities based on a database of CVE (all 3)
+- network reachability (EC2)
+
+it gives back a risk score associated to all vulnerabilities for prioritization.
