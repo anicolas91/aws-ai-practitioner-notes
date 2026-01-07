@@ -2269,3 +2269,82 @@ To create a bucket
 5. set up any tags
 6. set up encryption and key
 7. create bucket
+
+you can then upload objects to that bucket via the UI. If you click on an object you see all the details of this thing. including the URL that leads to this object.
+
+You cannot access with the 'public' url, because you set it as such.
+
+you can access it with a pre-signed url, with your own credentials that are only for you.
+
+#### Storage classes
+
+- Amazon S3 Standard - General Purpose --> 99.99% available. Big data analytics, mobile/gaming apps, content distribution
+- Amazon S3 Standard - Infrequent Access (IA) --> 99.9% available. Disaster recovery, backups
+- Amazon S3 One Zone - Infrequent Access --> 99.5% available. Store secondary backup copies, or data you can recreate
+- Amazon S3 Glacier Instant Retrieval --> backup but you need to access within milliseconds. Min store duration 90 days.
+- Amazon S3 Glacier Flexible Retrieval --> expedited (1-5 mins), standard (3-5 hours), bulk (5-12 hours) Min store duration 90 days.
+- Amazon S3 Glacier Deep Archive --> long term storage. standard (12h) bulk (48 hours). min store duration 180 days.
+- Amazon S3 Intelligent Tiering --> moves objects between tiers based on usage. no retrieval charges. Goes on tiers default/30/90/90/180/700+ days.
+
+you can move between classes manually or using S3 Lifecycle configurations
+
+The `durability` is what are the chances of losing data. At AWS you have 99.99999999999% (thats 11 9s) durability. It's the same for all storage calsses
+
+The `availability` is how readily available the service is. This one varies depending on storage class.
+
+S3 standard has 99.99% availability, so like it won't be available ~1h in a year.
+
+You can edit the storage class for each object.
+
+You can also create a lifecycle rule, to explain what class do they become after x days.
+
+TL;DR
+
+![s3-storage](./images/s3-storage.png)
+
+### Amazon EC2
+
+EC2 is one of the most popular of AWS’ offering
+
+EC2 = Elastic Compute Cloud = Infrastructure as a Service
+
+you use it for:
+
+- Renting virtual machines (EC2)
+- Storing data on virtual drives (EBS)
+- Distributing load across machines (ELB)
+- Scaling the services using an auto-scaling group (ASG)
+
+You have a bunch of different config options, from OS, to CPU, RAM, storage, type of network card, firewall rules, bootstrap script, etc.
+
+You essentially build a computer. At the core you can choose a custom machine and rent it.
+
+bootstrapping = launching commands when a machine starts. Only runs once at start.
+
+You automate boot tasks like:
+
+- installing updates
+- installing software
+- downloading common files
+- anything else
+
+You use root user and sudo.
+
+#### Setting it up
+
+1. you first launch an instance
+2. select a name and a tag
+3. You select application and OS images (AMI = amazon machine image) - linux, windows, mac, etc.
+4. You can select architecture, 32 or 64 bit
+5. select an instance type: some are free tier, they have specific memory, cpu, network performance, etc.
+6. select a key pair for login. you use this to connect via ssh
+7. select network settings
+8. specify on your security groups rules so you can connect to this.
+9. Configure storage (EBS volumes). you get on free tier 30GBs. You can set up more on 'advanced'. Default is on EC2 the volume is deleted on termination.
+10. on advanced details, you pass a script to execute on the first run.
+11. review everything on your summary.
+12. launch the instance.
+
+This instance on details will have a public address. Make sure it has http on the directory when you run it on a browser.
+
+Notice that the **public IP will change** if you stop/start the instance. The private IP will always stay the same however.
