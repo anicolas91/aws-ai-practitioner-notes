@@ -2462,3 +2462,115 @@ It does a continuous scanning of the infrastructure, will look at:
 - network reachability (EC2)
 
 it gives back a risk score associated to all vulnerabilities for prioritization.
+
+### Amazon cloudtrail
+
+It's enabled by default. It logs everything AWS related, usage, services, etc. Will be helpful for audit and security purposes.
+
+You can apply to all regions or a single one.
+
+You can send the data to cloud watch logs or s3 for longer term retention.
+
+You can use cloudtrail to figure out who deleted what.
+
+![cloudtrail](./images/cloudtrail.png)
+
+You can see all the details, all in some neat json i think.
+
+### AWS artifact
+
+Not really a service. It's a portal that gives access to AWS compliance documentation and AWS agreements.
+
+So you can see:
+
+- artifact reports - security and compliance docs from either AWS or 3rd party vendors. ISO certifications, payment card industry PCI, and system organization controls SOCs. ISV compliance reports only available to customers with access.
+- artifact agreements (business associate addendum BAA, HIPAA, etc.)
+
+Good for internal compliance and auditing
+
+ISV = independent software vendors
+
+Can receive notifications when a new report is available.
+
+### AWS audit manager
+
+This is for assessing risk and compliance on your AWS workloads, and it continuously audits the system.
+
+So, if you're getting audited, you can select among a bunch of prebuilt frameworks, and it generates a report of compliance.
+
+This is done continously. So you can fix issues before you get audited for reals.
+
+![audit-manager](./images/audit-manager.png)
+
+### AWS trusted advisor
+
+It's just a high level account assessment.
+
+It evaluates your account and gives you recommendations on 6 categories:
+
+- cost optimization
+- performance
+- security --> some are free
+- fault tolerance
+- service limits --> some are free
+- operational excellence
+
+you get some freebies, but for a full version with all 6 you need to get an enterprise or business account.
+
+![trusted-advisors](./images/trusted-advisors.png)
+
+### VPC & network security
+
+VPC is usually about deploying models privately or getting AWS services without internet.
+
+VPC = virtual private cloud
+Remember that
+
+- public subnets == access to the internet (uses an internet gateway)
+- private subnets == NO access to the internet. Exception with NAT gateway if you want to just want to download data. One-way
+
+And you have multiple public/private subnets across different availability zones on your VPC.
+
+![vpc-subnets2](./images/vpc-subnets2.png)
+
+remember: NAT gateway - AWS managed, allow instances in private subnets to access the internet while remaining private.
+
+Overall the VPC looks like this:
+![vpc-main](./images/vpc-main.png)
+
+#### VPC endpoints and PrivateLink
+
+Usually you access AWS services through the internet.
+
+Private Subnets applicaitons may not have an internet access
+
+- VPC endpoints == you can access AWS service privately without going through the public internet. Powered by PrivateLink. It just keeps network traffic internal to AWS.
+
+- S3 Gateway endpoint == access amazon s3 privately, there's also an interface endpoint.
+
+![privatelink](./images/privatelink.png)
+
+### Summary
+
+- IAM Users – mapped to a physical user, has a password for AWS Console
+- IAM Groups – contains users only
+- IAM Policies – JSON document that outlines permissions for users or groups
+- IAM Roles – for EC2 instances or AWS services
+- EC2 Instance – AMI (OS) + Instance Size (CPU + RAM) + Storage + security groups + EC2 User Data
+- AWS Lambda – serverless, Function as a Service, seamless scaling
+- VPC Endpoint powered by AWS PrivateLink – provide private access to AWS Services within VPC
+- S3 Gateway Endpoint - access Amazon S3 privately
+- Macie – find sensitive data (ex: PII data) in Amazon S3 buckets
+- Config – track config changes and compliance against rules
+- Inspector – find software vulnerabilities in EC2, ECR Images, and Lambda functions
+- CloudTrail – track API calls made by users within account
+- Artifact – get access to compliance reports such as PCI, ISO, etc…
+- Trusted Advisor – to get insights, Support Plan adapted to your needs
+
+#### with Bedrock
+
+- IAM with Bedrock - Implement identity verification and resource-level access control. Define roles and permissions to access Bedrock resources (e.g., data scientists)
+- GuardRails for Bedrock - Restrict specific topics in a GenAI application. Filter harmful content. Ensure compliance with safety policies by analyzing user inputs.
+- CloudTrail with Bedrock - Analyze API calls made to Amazon Bedrock
+- Config with Bedrock - look at configuration changes within Bedrock
+- PrivateLink with Bedrock - keep all API calls to Bedrock within the private VPC
