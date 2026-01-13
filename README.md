@@ -2574,3 +2574,49 @@ Private Subnets applicaitons may not have an internet access
 - CloudTrail with Bedrock - Analyze API calls made to Amazon Bedrock
 - Config with Bedrock - look at configuration changes within Bedrock
 - PrivateLink with Bedrock - keep all API calls to Bedrock within the private VPC
+
+### Udemy questions
+
+1. What is a proper definition of IAM Roles?
+
+- `An IAM entity that defines a set of permissions for making AWS service requests, that will be used by AWS services`
+- IAM users in multiple groups
+- Permissions assigned to users to perform actions
+
+2. Which answer is INCORRECT regarding IAM Users?
+
+- IAM users can belong to multiple groups
+- IAM users don't have to belong to a group
+- IAM users can have policies assigned to them -` IAM users access AWS with the root account credentials --> this is super discouraged`
+
+3. Which of the following is an IAM best practice?
+
+- `Dont use the root user account --> good practice, you only use root to create other accounts for the first time.`
+- create several users for a physical person
+- share credentials so a colleague can perform a task for you
+
+4. What are IAM Policies?
+
+- AWS services performable actions
+- `JSON documents to define users, groups or roles' permissions --> an iam policy is an entity that ,attached to an identity or resource, defines permissions`
+- Rules to set up a password for IAM users
+
+5. Which of the following services can you use to discover and protect your sensitive data in AWS?
+
+- `Macie --> this is like the hunger games macie, finds all the info on people like pii`
+- artifact
+- Inspector
+
+6. Where can you find on-demand access to AWS compliance documentation and AWS agreements?
+
+- Inspector
+- `Artifact -> it has all the artifacts with all the docs and agreements`
+- Config
+- Macie
+
+7. You want to record configurations and changes over time. Which service allows you to do this?
+
+- Inspector
+- `Config --> It literally tracks all config changes`
+- Lambda
+- Macie
